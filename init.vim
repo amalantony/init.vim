@@ -21,6 +21,7 @@ call plug#begin("~/.config/nvim/plugged")
   Plug 'gruvbox-community/gruvbox'
   Plug 'crusoexia/vim-monokai'
   Plug 'vimwiki/vimwiki'
+  Plug 'mattn/calendar-vim'
 call plug#end()
 
 " open new vertical split to the right , and horizontal split below
@@ -53,8 +54,9 @@ let g:fzf_action = {
   \ 'ctrl-s': 'split',
   \ 'ctrl-v': 'vsplit'
   \}
+
 " Use silver searcher - doesn't autocomplete .gitignore files
-" let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
 
 let g:NERDTreeShowHidden = 1
@@ -71,7 +73,9 @@ if (has("termguicolors"))
  set termguicolors
 endif
 
-" let g:gruvbox_contrast_dark="hard"
+set background="dark"
+let g:gruvbox_contrast_dark="hard"
+let g:gruvbox_contrast_light="hard"
 colorscheme dracula
 
 set number
@@ -114,7 +118,7 @@ inoremap <expr> <cr> ((pumvisible())?("\<C-y>"):("\<cr>"))
 " set Text width to 80 for files like MarkDown, for easy readbility
 au BufRead,BufNewFile *.md setlocal textwidth=80
 au BufRead,BufNewFile *.md setlocal fo+=t
-au BufRead,BufNewFile *.md,*.txt :CocDisable
+" au BufRead,BufNewFile *.md,*.txt :CocDisable
 
 " Move to next line when at end of current line by pressing l
 :set whichwrap=lh
@@ -132,3 +136,10 @@ augroup vimwikigroup
     " automatically update links on read diary
     autocmd BufRead,BufNewFile diary.wiki VimwikiDiaryGenerateLinks
 augroup end
+
+
+" Rename variable shorcut
+nmap <leader>rn <Plug>(coc-rename)
+
+" show current time in Airline status bar
+let g:airline_section_b = '%{strftime("%H:%M")}'
