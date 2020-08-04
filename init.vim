@@ -22,6 +22,7 @@ call plug#begin("~/.config/nvim/plugged")
   Plug 'crusoexia/vim-monokai'
   Plug 'vimwiki/vimwiki'
   Plug 'mattn/calendar-vim'
+  Plug 'cocopon/iceberg.vim'
 call plug#end()
 
 " open new vertical split to the right , and horizontal split below
@@ -48,7 +49,6 @@ nmap <leader>A :tab split<CR>:Ack <C-r><C-w><CR>
 
 
 set rtp+=~/.fzf
-nnoremap <C-p> :FZF<CR>
 let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
   \ 'ctrl-s': 'split',
@@ -58,7 +58,6 @@ let g:fzf_action = {
 " Use silver searcher - doesn't autocomplete .gitignore files
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
-
 let g:NERDTreeShowHidden = 1
 let g:NERDTreeMinimalUI = 1
 let g:NERDTreeIgnore = []
@@ -66,17 +65,22 @@ let g:NERDTreeStatusline = ''
 " Automaticaly close nvim if NERDTree is only thing left open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " Toggle
-nnoremap <silent> <C-b> :NERDTreeToggle<CR>
+nnoremap <silent> <C-b> :NERDTreeToggle <CR>
+
+nnoremap <silent> <C-p> :FZF<CR>
+
+" Leader c closes current tab with all splits
+nnoremap <silent> <Leader>c :tabclose<CR>
 
 
 if (has("termguicolors"))
  set termguicolors
 endif
 
-set background="dark"
+set background=dark
 let g:gruvbox_contrast_dark="hard"
 let g:gruvbox_contrast_light="hard"
-colorscheme dracula
+colorscheme monokai
 
 set number
 set mouse=a
