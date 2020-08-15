@@ -6,7 +6,7 @@ call plug#begin("~/.config/nvim/plugged")
   Plug 'dracula/vim'
   Plug 'scrooloose/nerdtree'
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver']
+  let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver', 'coc-python']
   Plug 'leafgarland/typescript-vim'
   Plug 'peitalin/vim-jsx-typescript'
   Plug 'lifepillar/vim-mucomplete'
@@ -144,6 +144,8 @@ augroup end
 
 " Rename variable shorcut
 nmap <leader>rn <Plug>(coc-rename)
+
+nmap <silent> <leader>nr :NERDTreeRefreshRoot<CR>
 
 " show current time in Airline status bar
 let g:airline_section_b = '%{strftime("%H:%M")}'
