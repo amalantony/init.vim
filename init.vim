@@ -6,7 +6,7 @@ call plug#begin("~/.config/nvim/plugged")
   Plug 'dracula/vim'
   Plug 'scrooloose/nerdtree'
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver', 'coc-python']
+  let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver', 'coc-python', 'coc-solargraph']
   Plug 'leafgarland/typescript-vim'
   Plug 'peitalin/vim-jsx-typescript'
   Plug 'lifepillar/vim-mucomplete'
@@ -20,9 +20,14 @@ call plug#begin("~/.config/nvim/plugged")
   Plug 'vim-airline/vim-airline-themes'
   Plug 'gruvbox-community/gruvbox'
   Plug 'crusoexia/vim-monokai'
+  Plug 'nanotech/jellybeans.vim'
   Plug 'vimwiki/vimwiki'
   Plug 'mattn/calendar-vim'
   Plug 'cocopon/iceberg.vim'
+  Plug 'tpope/vim-rails'
+  Plug 'tpope/vim-endwise'
+  Plug 'yuezk/vim-js'
+  Plug 'chemzqm/vim-jsx-improve'
 call plug#end()
 
 " open new vertical split to the right , and horizontal split below
@@ -32,6 +37,10 @@ set splitbelow
 " Fold settings
 set foldmethod=indent
 set foldlevel=99
+
+" IgnoreCase for search by default 
+" -> to not ignore case, do :set noic before search
+set ic
 
 let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.jsx,*.js'
 
@@ -64,9 +73,12 @@ let g:NERDTreeIgnore = []
 let g:NERDTreeStatusline = ''
 " Automaticaly close nvim if NERDTree is only thing left open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-" Toggle
-nnoremap <silent> <C-b> :NERDTreeToggle <CR>
+" Toggle NERDTree
+nnoremap <silent> <Leader>n :NERDTreeToggle<CR>
+nnoremap <silent> <Leader>f :NERDTreeFind <CR>
 
+
+" Control-P to trigger FZF
 nnoremap <silent> <C-p> :FZF<CR>
 
 " Leader c closes current tab with all splits
@@ -77,12 +89,12 @@ if (has("termguicolors"))
  set termguicolors
 endif
 
-set background=dark
 let g:gruvbox_contrast_dark="hard"
 let g:gruvbox_contrast_light="hard"
-colorscheme monokai
+set background=dark
+colorscheme dracula
 
-set number
+set relativenumber
 set mouse=a
 set smartindent
 set nohlsearch
@@ -117,7 +129,7 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
 " Enter shouldn't insert new line while autcompleting
-inoremap <expr> <cr> ((pumvisible())?("\<C-y>"):("\<cr>"))
+" inoremap <expr> <cr> ((pumvisible())?("\<C-y>"):("\<cr>"))
 
 " set Text width to 80 for files like MarkDown, for easy readbility
 au BufRead,BufNewFile *.md setlocal textwidth=80
@@ -149,3 +161,13 @@ nmap <silent> <leader>nr :NERDTreeRefreshRoot<CR>
 
 " show current time in Airline status bar
 let g:airline_section_b = '%{strftime("%H:%M")}'
+
+" Disable middle click paste, upto 4 times
+:map <MiddleMouse> <Nop>
+:imap <MiddleMouse> <Nop>
+:map <2-MiddleMouse> <Nop>
+:imap <2-MiddleMouse> <Nop>
+:map <3-MiddleMouse> <Nop>
+:imap <3-MiddleMouse> <Nop>
+:map <4-MiddleMouse> <Nop>
+:imap <4-MiddleMouse> <Nop>
