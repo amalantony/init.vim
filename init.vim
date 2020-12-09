@@ -3,7 +3,6 @@ call plug#begin("~/.config/nvim/plugged")
   " Plugin Section
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'
-  Plug 'dracula/vim'
   Plug 'scrooloose/nerdtree'
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver', 'coc-python', 'coc-solargraph']
@@ -18,9 +17,18 @@ call plug#begin("~/.config/nvim/plugged")
   Plug 'tpope/vim-surround'
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
+  Plug 'mattn/emmet-vim'
+  " Color themes
   Plug 'gruvbox-community/gruvbox'
   Plug 'crusoexia/vim-monokai'
+  Plug 'chase/focuspoint-vim'
+  Plug 'git@gitlab.com:yorickpeterse/happy_hacking.vim.git'
+  Plug 'junegunn/seoul256.vim'
+  Plug 'NLKNguyen/papercolor-theme'
   Plug 'nanotech/jellybeans.vim'
+  Plug 'dracula/vim'
+  Plug 'tpope/vim-vividchalk'
+
   Plug 'vimwiki/vimwiki'
   Plug 'mattn/calendar-vim'
   Plug 'cocopon/iceberg.vim'
@@ -63,10 +71,12 @@ let g:fzf_action = {
   \ 'ctrl-s': 'split',
   \ 'ctrl-v': 'vsplit'
   \}
-
 " Use silver searcher - doesn't autocomplete .gitignore files
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
+
+" NERDTree configs
+" --------------------------------
 let g:NERDTreeShowHidden = 1
 let g:NERDTreeMinimalUI = 1
 let g:NERDTreeIgnore = []
@@ -74,30 +84,39 @@ let g:NERDTreeStatusline = ''
 " Automaticaly close nvim if NERDTree is only thing left open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " Toggle NERDTree
-nnoremap <silent> <Leader>n :NERDTreeToggle<CR>
-nnoremap <silent> <Leader>f :NERDTreeFind <CR>
+nnoremap <C-b> :NERDTreeToggle<CR>
+" Show current file in NERDTree
+nnoremap <C-f> :NERDTreeFind <CR>
+nmap <silent> <leader>nr :NERDTreeRefreshRoot<CR>
+" --------------------------------
 
 
 " Control-P to trigger FZF
 nnoremap <silent> <C-p> :FZF<CR>
 
 " Leader c closes current tab with all splits
-nnoremap <silent> <Leader>c :tabclose<CR>
+nnoremap  <C-q> :tabclose<CR>
 
 
 if (has("termguicolors"))
  set termguicolors
 endif
 
+
+" --------- Color Scheme Related
 let g:gruvbox_contrast_dark="hard"
 let g:gruvbox_contrast_light="hard"
+
 set background=dark
 colorscheme dracula
+" ---------
 
 set relativenumber
 set mouse=a
 set smartindent
 set nohlsearch
+set hlsearch
+nmap <silent> <leader>h :noh<CR>
 
 " Vim wiki configs
 set nocompatible
@@ -153,11 +172,8 @@ augroup vimwikigroup
     autocmd BufRead,BufNewFile diary.wiki VimwikiDiaryGenerateLinks
 augroup end
 
-
 " Rename variable shorcut
 nmap <leader>rn <Plug>(coc-rename)
-
-nmap <silent> <leader>nr :NERDTreeRefreshRoot<CR>
 
 " show current time in Airline status bar
 let g:airline_section_b = '%{strftime("%H:%M")}'
@@ -171,3 +187,4 @@ let g:airline_section_b = '%{strftime("%H:%M")}'
 :imap <3-MiddleMouse> <Nop>
 :map <4-MiddleMouse> <Nop>
 :imap <4-MiddleMouse> <Nop>
+
