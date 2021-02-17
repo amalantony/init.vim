@@ -106,21 +106,23 @@ nnoremap <silent> <C-p> :FZF<CR>
 nnoremap  <C-q> :tabclose<CR>
 
 
-if (has("termguicolors"))
- set termguicolors
+" Enable true color 
+if exists('+termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
 endif
-
 
 " --------- Color Scheme Related
 let g:gruvbox_contrast_dark="hard"
 let g:gruvbox_contrast_light="hard"
 
 set background=dark
+" set t_Co=256
 colorscheme monokai
 " Enable transparent background
 " autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE
 " ---------
-set t_Co=256
 set relativenumber
 set number
 set mouse=a
