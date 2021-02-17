@@ -18,24 +18,29 @@ call plug#begin("~/.config/nvim/plugged")
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
   Plug 'mattn/emmet-vim'
+  Plug 'christoomey/vim-tmux-navigator'
   " Color themes
   Plug 'gruvbox-community/gruvbox'
   Plug 'crusoexia/vim-monokai'
   Plug 'chase/focuspoint-vim'
-  Plug 'git@gitlab.com:yorickpeterse/happy_hacking.vim.git'
+  Plug 'https://gitlab.com/yorickpeterse/happy_hacking.vim.git'
   Plug 'junegunn/seoul256.vim'
   Plug 'NLKNguyen/papercolor-theme'
   Plug 'nanotech/jellybeans.vim'
   Plug 'dracula/vim'
   Plug 'tpope/vim-vividchalk'
+  Plug 'lewis6991/moonlight.vim'
+  Plug 'cocopon/iceberg.vim'
 
   Plug 'vimwiki/vimwiki'
   Plug 'mattn/calendar-vim'
-  Plug 'cocopon/iceberg.vim'
   Plug 'tpope/vim-rails'
   Plug 'tpope/vim-endwise'
   Plug 'yuezk/vim-js'
   Plug 'chemzqm/vim-jsx-improve'
+  Plug 'prettier/vim-prettier', {
+  \ 'do': 'yarn install',
+  \ 'for': ['css', 'less', 'scss', 'json', 'graphql', 'markdown', 'yaml', 'html'] }
 call plug#end()
 
 " open new vertical split to the right , and horizontal split below
@@ -64,6 +69,9 @@ let g:ackprg = 'ag --nogroup --nocolor --column'
 nmap <leader>a :tab split<CR>:Ack<Space>
 nmap <leader>A :tab split<CR>:Ack <C-r><C-w><CR>
 
+" Prettier autosave
+let g:prettier#autoformat = 1
+let g:prettier#autoformat_require_pragma = 0
 
 set rtp+=~/.fzf
 let g:fzf_action = {
@@ -108,10 +116,13 @@ let g:gruvbox_contrast_dark="hard"
 let g:gruvbox_contrast_light="hard"
 
 set background=dark
-colorscheme dracula
+colorscheme monokai
+" Enable transparent background
+" autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE
 " ---------
-
+set t_Co=256
 set relativenumber
+set number
 set mouse=a
 set smartindent
 set nohlsearch
@@ -153,6 +164,8 @@ nnoremap <C-H> <C-W><C-H>
 " set Text width to 80 for files like MarkDown, for easy readbility
 au BufRead,BufNewFile *.md setlocal textwidth=80
 au BufRead,BufNewFile *.md setlocal fo+=t
+au BufRead,BufNewFile *.txt setlocal textwidth=80
+au BufRead,BufNewFile *.txt setlocal fo+=t
 " au BufRead,BufNewFile *.md,*.txt :CocDisable
 
 " Move to next line when at end of current line by pressing l
@@ -176,7 +189,10 @@ augroup end
 nmap <leader>rn <Plug>(coc-rename)
 
 " show current time in Airline status bar
-let g:airline_section_b = '%{strftime("%H:%M")}'
+" let g:airline_section_b = '%{strftime("%H:%M")}'
+"
+" Show airline for tabs too
+let g:airline#extensions#tabline#enabled = 1
 
 " Disable middle click paste, upto 4 times
 :map <MiddleMouse> <Nop>

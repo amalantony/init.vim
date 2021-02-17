@@ -15,5 +15,6 @@
     "javascriptreact",
     "typescript.tsx"
   ],
+  "prettier.disableSuccessMessage": true,
   "coc.preferences.diagnostic.virtualText": true
 }
