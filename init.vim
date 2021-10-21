@@ -65,9 +65,15 @@ let g:iced_enable_default_key_mappings = v:true
 autocmd BufEnter *.cljs :setlocal filetype=clojure
 autocmd BufEnter *.cljc :setlocal filetype=clojure
 autocmd Filetype clojure let g:AutoPairs={'(':')', '[':']', '{':'}','"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''"}
- 
 
-" Enable vim-rainbow for Clojure
+" Autoformat Clojure files on save
+aug VimIcedAutoFormatOnWriting
+  au!
+  " Format whole buffer on writing files
+  au BufWritePre *.clj,*.cljs,*.cljc,*.edn execute ':IcedFormatSyncAll'
+aug END
+
+" Enable vim-rainbow for all file types
 let g:rainbow_active=1
 
 inoremap <silent><expr> <c-space> coc#refresh()
