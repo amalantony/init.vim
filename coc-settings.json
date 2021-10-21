@@ -16,5 +16,6 @@
     "typescript.tsx"
   ],
   "prettier.disableSuccessMessage": true,
+  "coc.source.iced.enable": true,
   "coc.preferences.diagnostic.virtualText": true
 }

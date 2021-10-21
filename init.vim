@@ -5,7 +5,7 @@ call plug#begin("~/.config/nvim/plugged")
   Plug 'junegunn/fzf.vim'
   Plug 'scrooloose/nerdtree'
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver', 'coc-python', 'coc-solargraph']
+  let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-tailwindcss','coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver', 'coc-python', 'coc-solargraph', 'coc-go']
   Plug 'leafgarland/typescript-vim'
   Plug 'peitalin/vim-jsx-typescript'
   Plug 'lifepillar/vim-mucomplete'
@@ -19,6 +19,14 @@ call plug#begin("~/.config/nvim/plugged")
   Plug 'vim-airline/vim-airline-themes'
   Plug 'mattn/emmet-vim'
   Plug 'christoomey/vim-tmux-navigator'
+  Plug 'frazrepo/vim-rainbow'
+
+  " Vim-Iced for Clojure
+  Plug 'guns/vim-sexp',    {'for': 'clojure'}
+  Plug 'liquidz/vim-iced', {'for': 'clojure'}
+  Plug 'tpope/vim-sexp-mappings-for-regular-people', {'for': 'clojure'}
+  Plug 'liquidz/vim-iced-coc-source', {'for': 'clojure'}
+
   " Color themes
   Plug 'gruvbox-community/gruvbox'
   Plug 'crusoexia/vim-monokai'
@@ -31,17 +39,45 @@ call plug#begin("~/.config/nvim/plugged")
   Plug 'tpope/vim-vividchalk'
   Plug 'lewis6991/moonlight.vim'
   Plug 'cocopon/iceberg.vim'
+  Plug 'drewtempelmeyer/palenight.vim'
+  Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
+
+  " Only in Neovim:
+  Plug 'radenling/vim-dispatch-neovim'
 
   Plug 'vimwiki/vimwiki'
   Plug 'mattn/calendar-vim'
   Plug 'tpope/vim-rails'
   Plug 'tpope/vim-endwise'
   Plug 'yuezk/vim-js'
+  Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
   Plug 'chemzqm/vim-jsx-improve'
   Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
   \ 'for': ['css', 'less', 'scss', 'json', 'graphql', 'markdown', 'yaml', 'html'] }
 call plug#end()
+
+" Enable vim-iced's default key mapping
+let g:iced_enable_default_key_mappings = v:true
+
+" Treat cljc & cljs files are clojure type & disable ' autoclosing for clojure
+" type files
+autocmd BufEnter *.cljs :setlocal filetype=clojure
+autocmd BufEnter *.cljc :setlocal filetype=clojure
+autocmd Filetype clojure let g:AutoPairs={'(':')', '[':']', '{':'}','"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''"}
+ 
+
+" Enable vim-rainbow for Clojure
+let g:rainbow_active=1
+
+inoremap <silent><expr> <c-space> coc#refresh()
+nnoremap <silent><expr> <c-space> coc#refresh()
+
+augroup mygroup
+  autocmd!
+  " Update signature help on jump placeholder.
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
 
 " open new vertical split to the right , and horizontal split below
 set splitright
@@ -59,6 +95,7 @@ let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.jsx,*.js'
 
 " set space as leader
 let mapleader=" "
+let maplocalleader=" "
 
 " Use the_silver_searcher for code search with Ack.vim - need to setup both
 " silver_searher and ack.vim for this to work:
@@ -119,8 +156,8 @@ let g:gruvbox_contrast_light="hard"
 
 set background=dark
 " set t_Co=256
-colorscheme monokai
-" Enable transparent background
+colorscheme challenger_deep
+" Opacity - Enable transparent background
 " autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE
 " ---------
 set relativenumber
@@ -194,7 +231,7 @@ nmap <leader>rn <Plug>(coc-rename)
 " let g:airline_section_b = '%{strftime("%H:%M")}'
 "
 " Show airline for tabs too
-let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#enabled = 1
 
 " Disable middle click paste, upto 4 times
 :map <MiddleMouse> <Nop>
