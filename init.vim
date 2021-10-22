@@ -60,11 +60,11 @@ call plug#end()
 " Enable vim-iced's default key mapping
 let g:iced_enable_default_key_mappings = v:true
 
-" Treat cljc & cljs files are clojure type & disable ' autoclosing for clojure
+" Treat cljc & cljs files are clojure type & disable ' & ` autoclosing for clojure
 " type files
 autocmd BufEnter *.cljs :setlocal filetype=clojure
 autocmd BufEnter *.cljc :setlocal filetype=clojure
-autocmd Filetype clojure let g:AutoPairs={'(':')', '[':']', '{':'}','"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''"}
+autocmd Filetype clojure let g:AutoPairs={'(':')', '[':']', '{':'}','"':'"', '```':'```', '"""':'"""', "'''":"'''"}
 
 " Autoformat Clojure files on save
 aug VimIcedAutoFormatOnWriting
