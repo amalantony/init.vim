@@ -58,7 +58,6 @@ call plug#begin("~/.config/nvim/plugged")
 call plug#end()
 
 " -------------------------------------------- CLOJURE STUFF------------
- 
 " Enable vim-iced's default key mapping
 let g:iced_enable_default_key_mappings = v:true
 " let g:iced#buffer#stdout#mods = 'vertical'
@@ -68,6 +67,7 @@ let g:iced_enable_default_key_mappings = v:true
 autocmd BufEnter *.cljs :setlocal filetype=clojure
 autocmd BufEnter *.cljc :setlocal filetype=clojure
 autocmd Filetype clojure let g:AutoPairs={'(':')', '[':']', '{':'}','"':'"', '```':'```', '"""':'"""', "'''":"'''"}
+
 
 " Autoformat Clojure files on save
 aug VimIcedAutoFormatOnWriting
@@ -81,6 +81,10 @@ nmap <Nop>(iced_eval) <Plug>(iced_eval)
 nmap ei <Plug>(iced_eval_and_print)<Plug>(sexp_inner_element)``
 nmap ee <Plug>(iced_eval_and_print)<Plug>(sexp_outer_list)``
 nmap et <Plug>(iced_eval_and_print)<Plug>(sexp_outer_top_list)``
+
+" disable rename symbol mapping, setting it to <Leader>rn below
+nmap <Nop>(iced_rename_symbol) <Plug>(iced_rename_symbol)
+
 " ----------------------------------------- END CLOJURE STUFF------------
 
 
@@ -247,6 +251,7 @@ augroup end
 
 " Rename variable shorcut
 nmap <leader>rn <Plug>(coc-rename)
+autocmd Filetype clojure nmap <Leader>rn <Plug>(iced_rename_symbol)
 
 " show current time in Airline status bar
 " let g:airline_section_b = '%{strftime("%H:%M")}'
