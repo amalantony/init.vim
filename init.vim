@@ -161,8 +161,12 @@ let g:gruvbox_contrast_dark="hard"
 let g:gruvbox_contrast_light="hard"
 
 set background=dark
-" set t_Co=256
 colorscheme challenger_deep
+
+" set background=light
+" colorscheme gruvbox
+
+" set t_Co=256
 " Opacity - Enable transparent background
 " autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE
 " ---------
