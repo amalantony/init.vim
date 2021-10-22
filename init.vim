@@ -57,8 +57,11 @@ call plug#begin("~/.config/nvim/plugged")
   \ 'for': ['css', 'less', 'scss', 'json', 'graphql', 'markdown', 'yaml', 'html'] }
 call plug#end()
 
+" -------------------------------------------- CLOJURE STUFF------------
+ 
 " Enable vim-iced's default key mapping
 let g:iced_enable_default_key_mappings = v:true
+" let g:iced#buffer#stdout#mods = 'vertical'
 
 " Treat cljc & cljs files are clojure type & disable ' & ` autoclosing for clojure
 " type files
@@ -72,6 +75,14 @@ aug VimIcedAutoFormatOnWriting
   " Format whole buffer on writing files
   au BufWritePre *.clj,*.cljs,*.cljc,*.edn execute ':IcedFormatSyncAll'
 aug END
+
+" Ensure evaluation reuslts are printed to stdout
+nmap <Nop>(iced_eval) <Plug>(iced_eval)
+nmap ei <Plug>(iced_eval_and_print)<Plug>(sexp_inner_element)``
+nmap ee <Plug>(iced_eval_and_print)<Plug>(sexp_outer_list)``
+nmap et <Plug>(iced_eval_and_print)<Plug>(sexp_outer_top_list)``
+" ----------------------------------------- END CLOJURE STUFF------------
+
 
 " Enable vim-rainbow for all file types
 let g:rainbow_active=1
