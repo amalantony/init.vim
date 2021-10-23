@@ -57,36 +57,6 @@ call plug#begin("~/.config/nvim/plugged")
   \ 'for': ['css', 'less', 'scss', 'json', 'graphql', 'markdown', 'yaml', 'html'] }
 call plug#end()
 
-" -------------------------------------------- CLOJURE STUFF------------
-" Enable vim-iced's default key mapping
-let g:iced_enable_default_key_mappings = v:true
-" let g:iced#buffer#stdout#mods = 'vertical'
-
-" Treat cljc & cljs files are clojure type & disable ' & ` autoclosing for clojure
-" type files
-autocmd BufEnter *.cljs :setlocal filetype=clojure
-autocmd BufEnter *.cljc :setlocal filetype=clojure
-autocmd Filetype clojure let g:AutoPairs={'(':')', '[':']', '{':'}','"':'"', '```':'```', '"""':'"""', "'''":"'''"}
-
-
-" Autoformat Clojure files on save
-aug VimIcedAutoFormatOnWriting
-  au!
-  " Format whole buffer on writing files
-  au BufWritePre *.clj,*.cljs,*.cljc,*.edn execute ':IcedFormatSyncAll'
-aug END
-
-" Ensure evaluation reuslts are printed to stdout
-nmap <Nop>(iced_eval) <Plug>(iced_eval)
-nmap ei <Plug>(iced_eval_and_print)<Plug>(sexp_inner_element)``
-nmap ee <Plug>(iced_eval_and_print)<Plug>(sexp_outer_list)``
-nmap et <Plug>(iced_eval_and_print)<Plug>(sexp_outer_top_list)``
-
-" disable rename symbol mapping, setting it to <Leader>rn below
-nmap <Nop>(iced_rename_symbol) <Plug>(iced_rename_symbol)
-
-" ----------------------------------------- END CLOJURE STUFF------------
-
 
 " Enable vim-rainbow for all file types
 let g:rainbow_active=1
@@ -180,6 +150,7 @@ colorscheme challenger_deep
 
 " set background=light
 " colorscheme gruvbox
+" --------- End Color Scheme Related
 
 " set t_Co=256
 " Opacity - Enable transparent background
@@ -208,13 +179,6 @@ set tabstop=2
 set softtabstop=2
 " when indenting with '>', use 2 spaces width
 set shiftwidth=2
-
-
-" Code folding with space
-" set foldmethod=indent
-" set foldlevel=99
-" nnoremap <space> za
-
 
 " Easier split navigations nnoremap <C-J> <C-W><C-J>
 nnoremap <C-J> <C-W><C-J>
@@ -251,13 +215,6 @@ augroup end
 
 " Rename variable shorcut
 nmap <leader>rn <Plug>(coc-rename)
-autocmd Filetype clojure nmap <Leader>rn <Plug>(iced_rename_symbol)
-
-" show current time in Airline status bar
-" let g:airline_section_b = '%{strftime("%H:%M")}'
-"
-" Show airline for tabs too
-" let g:airline#extensions#tabline#enabled = 1
 
 " Disable middle click paste, upto 4 times
 :map <MiddleMouse> <Nop>
@@ -268,4 +225,33 @@ autocmd Filetype clojure nmap <Leader>rn <Plug>(iced_rename_symbol)
 :imap <3-MiddleMouse> <Nop>
 :map <4-MiddleMouse> <Nop>
 :imap <4-MiddleMouse> <Nop>
+
+" -------------------------------------------- CLOJURE STUFF------------
+" Enable vim-iced's default key mapping
+let g:iced_enable_default_key_mappings = v:true
+" let g:iced#buffer#stdout#mods = 'vertical'
+
+" Treat cljc & cljs files are clojure type & disable ' & ` autoclosing for clojure
+" type files
+autocmd BufEnter *.cljs :setlocal filetype=clojure
+autocmd BufEnter *.cljc :setlocal filetype=clojure
+autocmd Filetype clojure let g:AutoPairs={'(':')', '[':']', '{':'}','"':'"', '```':'```', '"""':'"""', "'''":"'''"}
+
+" disable rename symbol mapping, setting it to <Leader>rn 
+nmap <Nop>(iced_rename_symbol) <Plug>(iced_rename_symbol)
+autocmd Filetype clojure nmap <Leader>rn <Plug>(iced_rename_symbol)
+
+" Autoformat Clojure files on save
+aug VimIcedAutoFormatOnWriting
+  au!
+  " Format whole buffer on writing files
+  au BufWritePre *.clj,*.cljs,*.cljc,*.edn execute ':IcedFormatSyncAll'
+aug END
+
+" Ensure evaluation reuslts are printed to stdout
+nmap <Nop>(iced_eval) <Plug>(iced_eval)
+nmap ei <Plug>(iced_eval_and_print)<Plug>(sexp_inner_element)``
+nmap ee <Plug>(iced_eval_and_print)<Plug>(sexp_outer_list)``
+nmap et <Plug>(iced_eval_and_print)<Plug>(sexp_outer_top_list)``
+" ----------------------------------------- END CLOJURE STUFF------------
 
