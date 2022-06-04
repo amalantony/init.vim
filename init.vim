@@ -26,25 +26,27 @@ call plug#begin("~/.config/nvim/plugged")
   Plug 'liquidz/vim-iced', {'for': 'clojure'}
   Plug 'tpope/vim-sexp-mappings-for-regular-people', {'for': 'clojure'}
   Plug 'liquidz/vim-iced-coc-source', {'for': 'clojure'}
+  "Plug 'gpanders/nvim-parinfer'
+  Plug 'eraserhd/parinfer-rust'
 
   " Color themes
   Plug 'gruvbox-community/gruvbox'
   Plug 'crusoexia/vim-monokai'
   Plug 'chase/focuspoint-vim'
   Plug 'https://gitlab.com/yorickpeterse/happy_hacking.vim.git'
-  Plug 'junegunn/seoul256.vim'
   Plug 'NLKNguyen/papercolor-theme'
   Plug 'nanotech/jellybeans.vim'
   Plug 'dracula/vim'
   Plug 'tpope/vim-vividchalk'
   Plug 'lewis6991/moonlight.vim'
-  Plug 'cocopon/iceberg.vim'
   Plug 'drewtempelmeyer/palenight.vim'
   Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
+  Plug 'vim-scripts/wombat256.vim'
 
   " Only in Neovim:
   Plug 'radenling/vim-dispatch-neovim'
-
+  
+  Plug 'xuhdev/vim-latex-live-preview'
   Plug 'vimwiki/vimwiki'
   Plug 'mattn/calendar-vim'
   Plug 'tpope/vim-rails'
@@ -57,12 +59,19 @@ call plug#begin("~/.config/nvim/plugged")
   \ 'for': ['css', 'less', 'scss', 'json', 'graphql', 'markdown', 'yaml', 'html'] }
 call plug#end()
 
+" Live previewer
+let g:livepreview_previewer = 'zathura'
 
 " Enable vim-rainbow for all file types
 let g:rainbow_active=1
 
 inoremap <silent><expr> <c-space> coc#refresh()
 nnoremap <silent><expr> <c-space> coc#refresh()
+
+" Auto enable spell check for certain file types
+autocmd BufRead,BufNewFile *.md setlocal spell spelllang=en_us
+autocmd BufRead,BufNewFile *.tex setlocal spell spelllang=en_us
+autocmd BufRead,BufNewFile *.txt setlocal spell spelllang=en_us
 
 augroup mygroup
   autocmd!
@@ -146,7 +155,7 @@ let g:gruvbox_contrast_dark="hard"
 let g:gruvbox_contrast_light="hard"
 
 set background=dark
-colorscheme challenger_deep
+colorscheme monokai
 
 " set background=light
 " colorscheme gruvbox
@@ -162,7 +171,7 @@ set mouse=a
 set smartindent
 set nohlsearch
 set hlsearch
-nmap <silent> <leader>h :noh<CR>
+nmap <silent> <leader>nh :noh<CR>
 
 " Vim wiki configs
 set nocompatible
@@ -229,7 +238,7 @@ nmap <leader>rn <Plug>(coc-rename)
 " -------------------------------------------- CLOJURE STUFF------------
 " Enable vim-iced's default key mapping
 let g:iced_enable_default_key_mappings = v:true
-" let g:iced#buffer#stdout#mods = 'vertical'
+let g:iced#buffer#stdout#mods = 'vertical'
 
 " Treat cljc & cljs files are clojure type & disable ' & ` autoclosing for clojure
 " type files
